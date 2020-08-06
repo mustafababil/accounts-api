@@ -1,0 +1,35 @@
+pool:
+  name: Demo Project
+  vmImage: 'ubuntu-16.04'
+  demands: maven
+
+steps:
+  - task: Maven@3
+    displayName: 'Build with Maven'
+    inputs:
+      goals: 'clean install'
+      testResultsFiles: '**/TEST-*.xml'
+
+  - task: CopyFiles@2
+    displayName: 'Copy Files to Artifacts'
+    inputs:
+      SourceFolder: '$(system.defaultworkingdirectory)'
+      Contents: '**/*.jar'
+      TargetFolder: '$(build.artifactstagingdirectory)'
+
+  - task: PublishBuildArtifacts@1
+    displayName: 'Publish Artifact: drop'
+    inputs:
+      PathtoPublish: '$(build.artifactstagingdirectory)'
+
+  - task: PublishCodeCoverageResults@1
+    displayName: 'Publish code coverage for unit tests'
+    inputs:
+      summaryFileLocation: '**/jacoco/jacoco.xml'
+      pathToSources: '$(System.DefaultWorkingDirectory)/src/main/java/'
+
+  - task: PublishCodeCoverageResults@1
+    displayName: 'Publish code coverage for integration tests'
+    inputs:
+      summaryFileLocation: '**/jacoco-it/jacoco.xml'
+      pathToSources: '$(System.DefaultWorkingDirectory)/src/main/java/'
