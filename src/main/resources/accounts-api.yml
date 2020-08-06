@@ -1,0 +1,73 @@
+openapi: 3.0.1
+info:
+  title: DemoProject
+  description: DemoProject
+  contact:
+    name: Mustafa Babil
+    url: https://github.com/mustafababil
+  license:
+    name: GPLv3
+    url: http://foo.bar
+  version: 1.0.0
+security: []
+
+tags:
+  - name: Accounts
+    description: All the operations related to Accounts
+
+paths:
+  /api/v1/accounts:
+    post:
+      tags:
+        - Accounts
+      summary: Create a new account
+      description: A new account with initial balance is created
+      operationId: createNewAccount
+      requestBody:
+        $ref: '#/components/requestBodies/NewAccountRequestPayload'
+      responses:
+        201:
+          description: Returns the created account
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NewAccountResponseObject'
+        400:
+          description: Invalid input supplied
+        500:
+          description: Server error during creation of account
+
+components:
+  requestBodies:
+    NewAccountRequestPayload:
+      description: Request payload for creating new account
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/NewAccountRequestObject'
+  schemas:
+    NewAccountRequestObject:
+      type: object
+      properties:
+        customerId:
+          type: string
+          format: uuid
+          example: '123e4567-e89b-12d3-a456-426655440000'
+        initialCredit:
+          type: string
+          example: "'234.44'"
+      required:
+        - customerId
+        - initialCredit
+    NewAccountResponseObject:
+      allOf:
+        - type: object
+          properties:
+            accountId:
+              type: string
+              format: uuid
+              example: 'dd22fd5b-ef1e-4480-8074-835d67256766'
+          required:
+            - accountId
+        - $ref: '#/components/schemas/NewAccountRequestObject'
