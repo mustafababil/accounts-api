@@ -1,0 +1,35 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+    <changeSet author="Mustafa Babil" id="20200807-1">
+        <createTable tableName="accounts">
+            <column name="accountId" type="UUID">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="balance" remarks="Current balance of the account" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="customerId" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="Mustafa Babil" id="20200807-2">
+        <createTable tableName="transactions">
+            <column name="transactionId" type="UUID">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="transactionTimestamp" remarks="Datetime value of transaction" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="amount" remarks="Amount of transaction" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="accountId" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>
