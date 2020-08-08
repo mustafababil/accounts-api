@@ -13,9 +13,9 @@ public class AccountRepositoryImpl implements AccountRepository {
     private final AccountMapper mapper;
 
     public AccountRepositoryImpl(RelationalAccountRepository relationalAccountRepository,
-                                 AccountMapper mapper) {
+                                 AccountMapper accountMapper) {
         this.repository = relationalAccountRepository;
-        this.mapper = mapper;
+        this.mapper = accountMapper;
     }
 
     @Override
@@ -23,7 +23,6 @@ public class AccountRepositoryImpl implements AccountRepository {
         AccountDao dao = mapper.toDao(account);
         AccountDao savedDao = repository.save(dao);
 
-        Account savedAccount = mapper.toModel(savedDao);
-        return savedAccount;
+        return mapper.toModel(savedDao);
     }
 }
