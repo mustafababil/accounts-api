@@ -3,6 +3,7 @@ package com.mybank.demo.test;
 import com.mybank.demo.controller.model.generated.NewAccountRequestObject;
 import com.mybank.demo.model.Account;
 import com.mybank.demo.model.Customer;
+import com.mybank.demo.model.NewTransactionEvent;
 import com.mybank.demo.model.Transaction;
 
 import java.math.BigDecimal;
@@ -54,5 +55,9 @@ public final class SampleGenerator {
         sample.setName("John");
         sample.setSurname("Doe");
         return sample;
+    }
+
+    public static NewTransactionEvent createNewTransactionEvent() {
+        return new NewTransactionEvent(UUID.randomUUID(), BigDecimal.TEN);
     }
 }
