@@ -9,11 +9,11 @@ import java.util.UUID;
 @Service
 public class CustomerService {
 
-    public Customer getCustomer(@NotNull UUID customerId) {
+    public Customer getCustomer(@NotNull UUID accountId) {
         Customer randomCustomer = new Customer();
-        randomCustomer.setCustomerId(customerId);
-        randomCustomer.setName("Name");
-        randomCustomer.setSurname("Surname");
+        randomCustomer.setCustomerId(UUID.randomUUID());
+        randomCustomer.setName("John");
+        randomCustomer.setSurname("Doe");
         return randomCustomer;
     }
 }

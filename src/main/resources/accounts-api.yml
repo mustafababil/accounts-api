@@ -36,8 +36,34 @@ paths:
           description: Invalid input supplied
         500:
           description: Server error during creation of account
+  /api/v1/accounts/{id}:
+    get:
+      tags:
+        - Accounts
+      summary: Get account details
+      description: Account details including transactions
+      operationId: getAccountDetails
+      parameters:
+        - $ref: '#/components/parameters/IdPathParameter'
+      responses:
+        200:
+          description: Returns account details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountDetailsResponseObject'
 
 components:
+  parameters:
+    IdPathParameter:
+      name: id
+      in: path
+      description: The unique UUID
+      required: true
+      schema:
+        type: string
+        format: uuid
+        example: '3115ea04-6c39-481f-9aee-1a4cce028b15'
   requestBodies:
     NewAccountRequestPayload:
       description: Request payload for creating new account
@@ -71,3 +97,41 @@ components:
           required:
             - accountId
         - $ref: '#/components/schemas/NewAccountRequestObject'
+    AccountDetailsResponseObject:
+      type: object
+      properties:
+        accountId:
+          type: string
+          format: uuid
+          example: 'dd22fd5b-ef1e-4480-8074-835d67256766'
+        customerId:
+          type: string
+          format: uuid
+          example: '123e4567-e89b-12d3-a456-426655440000'
+        balance:
+          type: string
+          example: "'999.991'"
+        name:
+          type: string
+          example: 'John'
+        surname:
+          type: string
+          example: 'Doe'
+        transactions:
+          type: array
+          items:
+            $ref: '#/components/schemas/TransactionResponseObject'
+    TransactionResponseObject:
+      type: object
+      properties:
+        transactionId:
+          type: string
+          format: uuid
+          example: 'dd22fd5b-ef1e-4480-8074-835d67256766'
+        amount:
+          type: string
+          example: "'123.123'"
+        timestamp:
+          type: string
+          format: 'date-time'
+          example: '2020-08-08 19:32:24.50'

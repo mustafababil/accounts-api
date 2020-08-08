@@ -152,6 +152,9 @@
 							<supportingFilesToGenerate>
 								ApiUtil.java
 							</supportingFilesToGenerate>
+							<typeMappings>
+								<typeMapping>OffsetDateTime=java.time.Instant</typeMapping>
+							</typeMappings>
 							<configOptions>
 								<delegatePattern>false</delegatePattern>
 								<interfaceOnly>true</interfaceOnly>

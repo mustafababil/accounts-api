@@ -6,6 +6,9 @@ import com.mybank.demo.dal.inmemory.repository.RelationalAccountRepository;
 import com.mybank.demo.model.Account;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+import java.util.UUID;
+
 @Repository
 public class AccountRepositoryImpl implements AccountRepository {
 
@@ -24,5 +27,11 @@ public class AccountRepositoryImpl implements AccountRepository {
         AccountDao savedDao = repository.save(dao);
 
         return mapper.toModel(savedDao);
+    }
+
+    @Override
+    public Optional<Account> get(UUID accountId) {
+        Optional<AccountDao> optionalDao = repository.findById(accountId);
+        return optionalDao.map(mapper::toModel);
     }
 }

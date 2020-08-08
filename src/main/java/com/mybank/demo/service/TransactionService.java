@@ -8,6 +8,7 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -29,5 +30,9 @@ public class TransactionService {
         transaction.setTransactionTimestamp(Instant.now());
 
         return transactionRepository.save(transaction);
+    }
+
+    public List<Transaction> getTransactions(UUID accountId) {
+        return transactionRepository.getTransactions(accountId);
     }
 }

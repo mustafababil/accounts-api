@@ -6,6 +6,10 @@ import com.mybank.demo.dal.inmemory.repository.RelationalTransactionRepository;
 import com.mybank.demo.model.Transaction;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+import java.util.UUID;
+import java.util.stream.Collectors;
+
 @Repository
 public class TransactionRepositoryImpl implements TransactionRepository {
 
@@ -24,5 +28,12 @@ public class TransactionRepositoryImpl implements TransactionRepository {
         TransactionDao createdTransaction = repository.save(dao);
 
         return mapper.toModel(createdTransaction);
+    }
+
+    @Override
+    public List<Transaction> getTransactions(UUID accountId) {
+        List<TransactionDao> daos = repository.findByAccountId(accountId);
+
+        return daos.stream().map(mapper::toModel).collect(Collectors.toList());
     }
 }
