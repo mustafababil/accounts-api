@@ -1,6 +1,8 @@
 package com.mybank.demo.test;
 
 import com.mybank.demo.controller.model.generated.NewAccountRequestObject;
+import com.mybank.demo.dal.inmemory.model.AccountDao;
+import com.mybank.demo.dal.inmemory.model.TransactionDao;
 import com.mybank.demo.model.Account;
 import com.mybank.demo.model.Customer;
 import com.mybank.demo.model.NewTransactionEvent;
@@ -59,5 +61,22 @@ public final class SampleGenerator {
 
     public static NewTransactionEvent createNewTransactionEvent() {
         return new NewTransactionEvent(UUID.randomUUID(), BigDecimal.TEN);
+    }
+
+    public static AccountDao createAccountDao() {
+        AccountDao sample = new AccountDao();
+        sample.setAccountId(UUID.randomUUID());
+        sample.setCustomerId(UUID.randomUUID());
+        sample.setBalance(BigDecimal.TEN.toString());
+        return sample;
+    }
+
+    public static TransactionDao createTransactionDao(UUID accountId) {
+        TransactionDao sample = new TransactionDao();
+        sample.setAccountId(accountId);
+        sample.setTransactionId(UUID.randomUUID());
+        sample.setAmount(BigDecimal.TEN.toString());
+        sample.setTransactionTimestamp(Instant.now());
+        return sample;
     }
 }
