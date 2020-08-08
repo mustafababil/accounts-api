@@ -1,4 +1,4 @@
-package com.mybank.demo.config;
+package com.mybank.demo.test.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

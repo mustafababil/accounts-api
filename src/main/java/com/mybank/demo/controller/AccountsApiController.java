@@ -8,6 +8,7 @@ import com.mybank.demo.controller.model.generated.NewAccountResponseObject;
 import com.mybank.demo.model.Account;
 import com.mybank.demo.model.Customer;
 import com.mybank.demo.model.Transaction;
+import com.mybank.demo.model.exception.InvalidCurrencyFormatException;
 import com.mybank.demo.service.AccountService;
 import com.mybank.demo.service.CustomerService;
 import com.mybank.demo.service.TransactionService;
@@ -39,8 +40,13 @@ public class AccountsApiController implements AccountsApi {
 
     @Override
     public ResponseEntity<NewAccountResponseObject> createNewAccount(NewAccountRequestObject newAccountRequestObject) {
-        final BigDecimal initialCredit = new BigDecimal(newAccountRequestObject.getInitialCredit());
-        // TODO Implement excp handler for NumberFormatException
+        final BigDecimal initialCredit;
+        try {
+            initialCredit = new BigDecimal(newAccountRequestObject.getInitialCredit());
+        } catch (NumberFormatException nfe) {
+            String message = String.format("Given initial credit '%s' is in invalid format.", newAccountRequestObject.getInitialCredit());
+            throw new InvalidCurrencyFormatException(message);
+        }
 
         final Account newAccount = accountService.createNewAccount(newAccountRequestObject.getCustomerId(), initialCredit);
         final NewAccountResponseObject response = mapper.toNewAccountResponseObject(newAccount);
