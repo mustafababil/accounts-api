@@ -1,27 +1,29 @@
 package com.mybank.demo.repository;
 
+import com.mybank.demo.dal.inmemory.mapper.AccountMapper;
+import com.mybank.demo.dal.inmemory.model.AccountDao;
+import com.mybank.demo.dal.inmemory.repository.RelationalAccountRepository;
 import com.mybank.demo.model.Account;
 import org.springframework.stereotype.Repository;
-
-import java.util.Map;
-import java.util.UUID;
-import java.util.concurrent.ConcurrentHashMap;
 
 @Repository
 public class AccountRepositoryImpl implements AccountRepository {
 
-    /*
-     * This is a primitive in-memory persistence repository
-     */
-    private final Map<UUID, Account> vault;
+    private final RelationalAccountRepository repository;
+    private final AccountMapper mapper;
 
-    public AccountRepositoryImpl() {
-        vault = new ConcurrentHashMap<>();
+    public AccountRepositoryImpl(RelationalAccountRepository relationalAccountRepository,
+                                 AccountMapper mapper) {
+        this.repository = relationalAccountRepository;
+        this.mapper = mapper;
     }
 
     @Override
     public Account save(Account account) {
-        vault.put(account.getAccountId(), account);
-        return account;
+        AccountDao dao = mapper.toDao(account);
+        AccountDao savedDao = repository.save(dao);
+
+        Account savedAccount = mapper.toModel(savedDao);
+        return savedAccount;
     }
 }
