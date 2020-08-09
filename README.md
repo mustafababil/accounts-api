@@ -2,7 +2,7 @@
 
 [![Build Status](https://dev.azure.com/mustafababil/mustafababil/_apis/build/status/blue-harvest-accounts-api?branchName=master)](https://dev.azure.com/mustafababil/mustafababil/_build/latest?definitionId=6&branchName=master)
 
-#### Tech stack
+### Tech stack
 - Java 11
 - Spring Boot 2.3.2
 - OpenAPI v3
@@ -13,6 +13,7 @@
 - JUnit and Mockito
 - Sonarlint
 
+#### Commands 
 1. Generate API Controllers and Models
 ```shell script
 ./mvnw clean compile
@@ -34,11 +35,13 @@
 - Project is developed on monolith architecture as the current scope is limited and the future is blurry.
 - Minimal dependency between business services, i.e. *AccountService* and *TransactionService*.
 - Event based communication between services, i.e. when a new account with initial credit is created, regarding
-transaction is created asynchronously by *TransactionService*
+transaction is created asynchronously by *TransactionService*.
 
 ### Swagger Page
 
-http://localhost:8080/swagger-ui.html
+Local: http://localhost:8080/swagger-ui.html
+
+Azure: https://weu-accounts-api.azurewebsites.net/swagger-ui.html
 
 ### Application Overview
 N-tier architecture approach is applied. Three main layers namely Controller, Service and Repository matches the Web, Business and Data tiers respectively.
@@ -71,8 +74,8 @@ controller interface and API models are created automatically. So, I could focus
 
 OpenAPI definition is at `resources/accounts-api.yml`.
 
-#### Tests
-##### Integration tests
+### Tests
+#### Integration tests
 Controller and Repository layers have integration tests that uses the actual components the app
 uses in production. They can be found under test packages `com.mybank.demo.controller` and `com.mybank.demo.dal.inmemory.repository`.
 

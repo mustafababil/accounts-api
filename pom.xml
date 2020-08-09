@@ -18,7 +18,7 @@
 		<java.version>11</java.version>
 		<swagger-annotations-version>1.5.22</swagger-annotations-version>
 		<jackson-version>2.10.2</jackson-version>
-		<jackson-databind-nullable>0.2.1</jackson-databind-nullable>
+		<jackson-databind-nullable-version>0.2.1</jackson-databind-nullable-version>
 		<hibernate-version>5.4.18.Final</hibernate-version>
 		<springfox-version>2.9.2</springfox-version>
 		<liquibase-version>3.10.1</liquibase-version>
@@ -58,7 +58,7 @@
 		<dependency>
 			<groupId>org.openapitools</groupId>
 			<artifactId>jackson-databind-nullable</artifactId>
-			<version>${jackson-databind-nullable}</version>
+			<version>${jackson-databind-nullable-version}</version>
 		</dependency>
 
 		<dependency>
@@ -241,6 +241,7 @@
 						<configuration>
 							<includes>
 								<include>**/*ControllerIntegrationTests</include>
+								<include>**/*DBIntegrationTests</include>
 							</includes>
 						</configuration>
 					</execution>
