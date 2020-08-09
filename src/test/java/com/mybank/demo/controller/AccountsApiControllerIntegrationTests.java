@@ -111,15 +111,5 @@ public class AccountsApiControllerIntegrationTests extends ControllerIntegration
                 .andExpect(MockMvcResultMatchers.jsonPath("$.transactions").isNotEmpty())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.transactions", hasSize(transactionCount)));
     }
-
-/*    @Test
-    public void whenGetAccountDetailsWithInvalidId_thenErrorResponse() throws Exception {
-        UUID accountId = UUID.randomUUID();
-        given(accountService.getAccountDetails(eq(accountId))).willThrow(AccountNotFoundException.class);
-
-        mockMvc.perform(MockMvcRequestBuilders.get(GET_ACCOUNT_DETAILS_ENDPOINT, accountId.toString())
-                .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(MockMvcResultMatchers.status().is4xxClientError())
-                .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON));
-    }*/ // TODO Revisit this test case later
+    
 }

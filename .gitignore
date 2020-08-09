@@ -284,3 +284,5 @@ $RECYCLE.BIN/
 
 # End of https://www.toptal.com/developers/gitignore/api/java,maven,intellij,eclipse,visualstudiocode,macos,windows
 
+/${project.test.result.directory}/
+${project.test.result.directory}/
